@@ -1,35 +1,30 @@
 import { useState } from 'react';
-import reactLogo from './assets/react.svg';
-import viteLogo from './assets/vite.svg';
-import './App.css';
+import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
+import Button from '@mui/material/Button';
+import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 
 function App() {
-  const [count, setCount] = useState(0);
-
-  return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
-  );
+    return (
+        <Box
+            sx={{
+                color: "white",
+                backgroundColor: "black",
+                marginTop: "20px",
+                padding: "0px 30px",
+                border: '2px solid white',
+                borderRadius: "5px",
+                fontSize: "20px",
+                '&:hover': {
+                    backgroundColor: '#00B4D8',
+                },
+            }}
+        >
+            <Button variant="text">
+                用 MPV 播放
+            </Button>
+        </Box>
+    );
 }
 
 export default App;

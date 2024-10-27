@@ -11,7 +11,7 @@ export default defineConfig({
       userscript: {
         icon: 'https://vitejs.dev/logo.svg',
         namespace: 'npm/vite-plugin-monkey',
-        match: ['https://www.google.com/'],
+        match: ['https://ani.gamer.com.tw/animeVideo.php?sn=*'],
       },
       build: {
         externalGlobals: {
