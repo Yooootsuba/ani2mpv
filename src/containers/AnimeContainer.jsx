@@ -1,6 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 
+import { animeToMpv } from "../utils/AnimeToMpv";
 import AnimePage from "../components/pages/AnimePage";
 import { apiStartAd, apiEndAd, apiGetM3U8, apiIsVip } from "../utils/ApiWrapper";
 
@@ -57,12 +58,12 @@ export default function MpvContainer() {
 
 
     /*
-     * 取得影片網址後 ...
+     * 取得影片網址後跳轉至 MPV
      *
      */
     useEffect(() => {
         if (videoUrl != null) {
-            console.log(videoUrl);
+            animeToMpv(videoUrl);
         }
     }, [videoUrl]);
 
