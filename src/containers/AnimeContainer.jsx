@@ -57,7 +57,7 @@ export default function MpvContainer() {
 
 
     /*
-     * 取得影片網址後 ...
+     * 取得影片網址後跳轉至 MPV
      *
      */
     useEffect(() => {
@@ -101,7 +101,7 @@ export default function MpvContainer() {
         var text = `廣告播放完畢`;
     }
     else {
-        var text = `???`;
+        var text = `取得會員資訊中 ...`;
     }
 
 
