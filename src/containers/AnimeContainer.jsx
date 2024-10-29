@@ -57,6 +57,17 @@ export default function MpvContainer() {
 
 
     /*
+     * 取得影片網址後 ...
+     *
+     */
+    useEffect(() => {
+        if (videoUrl != null) {
+            console.log(videoUrl);
+        }
+    }, [videoUrl]);
+
+
+    /*
      * "用 MPV 播放" 的按鈕的 Handler
      *
      * 如果使用者不是付費會員，會模擬播放廣告
