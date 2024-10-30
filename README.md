@@ -36,11 +36,15 @@ Chrome 瀏覽器需要你到 chrome://extensions 開啟開發者模式，這樣 
 
 ## MPV 設定檔資料夾
 
-mpv.net 的設定檔資料夾在 ```%APPDATA%\mpv.net```
+以下是每種 MPV 的設定檔資料夾位置
 
-MPV Lazy 的設定檔資料夾在 ```<your_mpv_lazy_directory>\portable_config```
+- [mpv.net](https://mpv.io/)  ```%APPDATA%\mpv.net```
 
-Linux 使用者的 MPV 設定檔資料夾在 ```~/.config/mpv```
+- [mpv.net_CM](https://www.lckp.top/thing/mpvnet_cm/)  ```<your_mpv.net_CM_directory>\portable_config```
+
+- [MPV Lazy](https://github.com/hooke007/MPV_lazy)  ```<your_mpv_lazy_directory>\portable_config```
+
+- Linux MPV 使用者  ```~/.config/mpv```
 
 
 ## MPV 設定檔
