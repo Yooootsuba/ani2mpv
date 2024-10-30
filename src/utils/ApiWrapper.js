@@ -1,15 +1,5 @@
 import axios from "axios";
-
-
-/*
- * 這不是我寫的功能
- *
- * 是直接取用動畫瘋頁面上的 JavaScript
- *
- */
-const ad = getAd()[0];
-const sn = animefun.videoSn;
-const device = animefun.getdeviceid();
+import { ad, sn, device } from "./AnimeConstant";
 
 
 export function apiStartAd(callback) {
