@@ -7,4 +7,4 @@
 export const ad = getAd()[0];
 export const sn = animefun.videoSn;
 export const device = animefun.getdeviceid();
-export const title = animefun.title;
+export const title = animefun.title + " - 巴哈姆特動畫瘋";

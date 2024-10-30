@@ -1,12 +1,8 @@
 import { title } from "./AnimeConstant";
+import { Base64 } from 'js-base64';
 
 
 export function animeToMpv(url) {
-    const data = btoa(url);
-    const safe = data.replace(/\//g, "_").replace(/\+/g, "-").replace(/\=/g, "");
-    const mpvh = "mpv://play/" + safe;
-
-    alert(mpvh);
-
-    window.location.href = mpvh;
+    const mpv = `mpv://play/${Base64.encodeURI(url)}/?v_title=${Base64.encodeURI(title)}`;
+    window.location.href = mpv;
 }
