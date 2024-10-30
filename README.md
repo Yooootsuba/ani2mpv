@@ -60,7 +60,9 @@ https://github.com/Yooootsuba/ani2mpv/blob/main/mpv/mpv.conf
 
 我使用的是 [akiirui/mpv-handler](https://github.com/akiirui/mpv-handler)，還請使用者前往該頁面進行安裝
 
-作者有針對 Custom URL Scheme 這點，要求前端要傳送 Base64 編碼後的網址，可以避免不同瀏覽器傳送 URL 編碼可能出現 BUG
+該作者有針對 Custom URL Scheme 這點，要求前端要傳送 Base64 編碼後的網址
+
+如此一來可以避免不同瀏覽器傳送 URL 編碼可能出現 BUG
 
 而且有支援跨平台（Linux 和 Windows）
 
