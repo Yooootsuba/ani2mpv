@@ -2,6 +2,8 @@
 
 ani2mpv 是一個篡改猴插件，用於巴哈姆特動畫瘋，可以讓影片跳轉至本地的 MPV 播放器
 
+![](https://github.com/Yooootsuba/ani2mpv/blob/main/src/assets/%E4%BB%98%E8%B2%BB%E6%9C%83%E5%93%A1.png)
+
 ## 功能
 
 - 跳轉至本地 MPV 播放
