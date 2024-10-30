@@ -1,7 +1,8 @@
 {
-  "name": "test",
+  "name": "ani2mpv",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "讓動畫瘋跳轉到 MPV",
   "type": "module",
   "scripts": {
     "dev": "vite",
