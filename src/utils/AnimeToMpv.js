@@ -1,4 +1,7 @@
 export function animeToMpv(url) {
-    const encodedUrl = btoa(url).replace(/\//g, "_").replace(/\+/g, "-").replace(/\=/g, "");
-    window.location.href = "mpv://play/" + encodedUrl;
+    const data = bota(url);
+    const safe = data.replace(/\//g, "_").replace(/\+/g, "-").replace(/\=/g, "");
+    const mpvh = "mpv://play/" + safe;
+
+    window.location.href = mpvf;
 }
