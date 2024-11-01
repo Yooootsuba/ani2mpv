@@ -10,7 +10,6 @@ export default function MpvButton({ onClick }) {
                 color: "white",
                 backgroundColor: "black",
                 marginTop: "20px",
-                padding: "0px 30px",
                 border: "2px solid white",
                 borderRadius: "5px",
                 fontSize: "20px",
@@ -19,7 +18,12 @@ export default function MpvButton({ onClick }) {
                 },
             }}
         >
-            <Button variant="text" onClick={onClick} >
+            <Button
+                variant="text"
+                onClick={onClick}
+                fullWidth
+                sx={{ padding: "10px 50px" }}
+            >
                 用 MPV 播放
             </Button>
         </Box>
