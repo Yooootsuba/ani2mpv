@@ -1,7 +1,7 @@
 {
   "name": "ani2mpv",
   "private": true,
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "讓動畫瘋跳轉到 MPV",
   "type": "module",
   "scripts": {
@@ -26,5 +26,6 @@
     "vite": "^5.2.12",
     "vite-plugin-monkey": "^4.0.0"
   },
+  "author": "Yotsuba",
   "license": "MIT"
 }
