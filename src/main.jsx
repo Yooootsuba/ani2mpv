@@ -5,7 +5,6 @@ import App from "./App";
 const app = document.createElement("div");
 const targetSelector = ".ncc-choose-btn";
 
-
 const observer = new MutationObserver((mutations) => {
     const target = document.querySelector(targetSelector);
 

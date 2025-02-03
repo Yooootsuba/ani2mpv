@@ -3,8 +3,12 @@ import { useState, useEffect } from "react";
 
 import { animeToMpv } from "../utils/AnimeToMpv";
 import AnimePage from "../components/pages/AnimePage";
-import { apiStartAd, apiEndAd, apiGetM3U8, apiIsVip } from "../utils/ApiWrapper";
-
+import {
+    apiStartAd,
+    apiEndAd,
+    apiGetM3U8,
+    apiIsVip,
+} from "../utils/ApiWrapper";
 
 export default function MpvContainer() {
     /*
@@ -21,7 +25,6 @@ export default function MpvContainer() {
     const [timer, setTimer] = useState(null);
     const [videoUrl, setVideoUrl] = useState(null);
 
-
     /*
      * 首次載入頁面，先確定使用者是不是付費會員
      *
@@ -31,7 +34,6 @@ export default function MpvContainer() {
             setVip(vip);
         });
     }, []);
-
 
     /*
      * 當 Timer 被初始化成 25，代表使用者點擊按鈕且非付費會員
@@ -43,19 +45,17 @@ export default function MpvContainer() {
         if (timer != null) {
             if (timer > 0) {
                 setTimeout(() => {
-                    setTimer(timer - 1)
+                    setTimer(timer - 1);
                 }, 1000);
-            }
-            else {
+            } else {
                 apiEndAd(() => {
                     apiGetM3U8((videoUrl) => {
                         setVideoUrl(videoUrl);
                     });
-                })
+                });
             }
         }
-    }, [timer])
-
+    }, [timer]);
 
     /*
      * 取得影片網址後跳轉至 MPV
@@ -66,7 +66,6 @@ export default function MpvContainer() {
             animeToMpv(videoUrl);
         }
     }, [videoUrl]);
-
 
     /*
      * "用 MPV 播放" 的按鈕的 Handler
@@ -79,34 +78,24 @@ export default function MpvContainer() {
             apiGetM3U8((videoUrl) => {
                 setVideoUrl(videoUrl);
             });
-        }
-        else {
+        } else {
             apiStartAd(() => {
                 setTimer(25);
-            })
+            });
         }
-
     }
-
 
     if (vip == true) {
         var text = `你是付費會員！`;
-    }
-    else if (vip == false && timer == null) {
+    } else if (vip == false && timer == null) {
         var text = `按下按鈕後自動觀看廣告`;
-    }
-    else if (vip == false && timer > 0) {
+    } else if (vip == false && timer > 0) {
         var text = `廣告播放中，還剩下 ${timer} 秒`;
-    }
-    else if (vip == false && timer == 0) {
+    } else if (vip == false && timer == 0) {
         var text = `廣告播放完畢`;
-    }
-    else {
+    } else {
         var text = `取得會員資訊中 ...`;
     }
 
-
-    return (
-        <AnimePage onClick={onClick} text={text} />
-    );
+    return <AnimePage onClick={onClick} text={text} />;
 }
