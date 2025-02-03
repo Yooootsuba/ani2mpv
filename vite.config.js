@@ -9,9 +9,11 @@ export default defineConfig({
         monkey({
             entry: "src/main.jsx",
             userscript: {
+                runAt: "document-start",
                 icon: "https://vitejs.dev/logo.svg",
                 namespace: "npm/vite-plugin-monkey",
                 match: ["https://ani.gamer.com.tw/animeVideo.php?sn=*"],
+                grant: ["none"],
             },
             build: {
                 externalGlobals: {
