@@ -1,13 +1,14 @@
 import React from "react";
-import { useState, useEffect } from "react";
 
 import Page from "./components/Page";
 
-import { apiStartAd, apiEndAd, apiGetM3U8 } from "../api/api";
+import { apiStartAd, apiEndAd } from "../api/api";
 
 import { useAdTimer } from "./hooks/useAdTimer";
 import { useVipStatus } from "./hooks/useVipStatus";
 import { useVideoAlert } from "./hooks/useVideoAlert";
+
+import { animeToMpv } from "../utils/animeToMpv";
 
 export default function Ani2Mpv() {
     /*
@@ -27,7 +28,7 @@ export default function Ani2Mpv() {
     });
 
     const { vip } = useVipStatus();
-    const { videoUrl } = useVideoAlert();
+    const { videoUrl, getM3U8 } = useVideoAlert();
 
     /*
      * "用 MPV 播放" 的按鈕的 Handler
