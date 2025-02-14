@@ -2,6 +2,14 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 
+import "./overrides/fetch";
+
+/*
+ * 插件開始執行的進入點
+ *
+ */
+console.log("ani2mpv: 載入 main.jsx");
+
 const app = document.createElement("div");
 const targetSelector = ".ncc-choose-btn";
 
