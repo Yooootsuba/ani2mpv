@@ -42,7 +42,7 @@ export default function Ani2Mpv() {
          *
          */
         if (videoUrl) {
-            aniToMpv();
+            animeToMpv();
             return;
         }
 
