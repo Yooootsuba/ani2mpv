@@ -1,74 +1,33 @@
 import React from "react";
 import { useState, useEffect } from "react";
 
-// import { animeToMpv } from "../utils/AnimeToMpv";
 import Page from "./components/Page";
-import {
-    apiStartAd,
-    apiEndAd,
-    apiGetM3U8,
-    apiIsVip,
-} from "../utils/ApiWrapper";
 
-import { useAtom } from "jotai";
-import { vipAtom, videoUrlAtom } from "../atoms/animeAtom";
+import { apiStartAd, apiEndAd, apiGetM3U8 } from "../api/api";
+
+import { useAdTimer } from "./hooks/useAdTimer";
+import { useVipStatus } from "./hooks/useVipStatus";
+import { useVideoAlert } from "./hooks/useVideoAlert";
 
 export default function Ani2Mpv() {
     /*
-     * 用 useState 初始化一些狀態：
+     * 初始化廣告計時器
      *
-     * vip 用來判斷使用者是否為付費會員
-     *
-     * timer 如果使用者不是付費會員，則需要一個模擬看廣告的計時器
-     *
-     * videoUrl 最終要跳轉到 MPV 的 M3U8 網址
+     * 下方參數是計時器歸 0 該做的事情，發送看完廣告的請求，然後取得 M3U8
      *
      */
-    const [vip, setVip] = useAtom(vipAtom);
-    const [timer, setTimer] = useState(null);
-    const [videoUrl, setVideoUrl] = useAtom(videoUrlAtom);
+    const { timer, setTimer } = useAdTimer(() => {
+        apiEndAd(
+            (response) => {
+                console.log("ani2mpv: 廣告結束");
+                getM3U8();
+            },
+            (error) => {}
+        );
+    });
 
-    /*
-     * 首次載入頁面，先確定使用者是不是付費會員
-     *
-     */
-    useEffect(() => {
-        apiIsVip((vip) => {
-            setVip(vip);
-        });
-    }, []);
-
-    /*
-     * 當 Timer 被初始化成 25，代表使用者點擊按鈕且非付費會員
-     *
-     * 這時會開始模擬播放廣告，Timer 歸 0 才會取得影片連結
-     *
-     */
-    useEffect(() => {
-        if (timer != null) {
-            if (timer > 0) {
-                setTimeout(() => {
-                    setTimer(timer - 1);
-                }, 1000);
-            } else {
-                apiEndAd(() => {
-                    apiGetM3U8((videoUrl) => {
-                        setVideoUrl(videoUrl);
-                    });
-                });
-            }
-        }
-    }, [timer]);
-
-    /*
-     * 取得影片網址後跳轉至 MPV
-     *
-     */
-    useEffect(() => {
-        if (videoUrl != null) {
-            animeToMpv(videoUrl);
-        }
-    }, [videoUrl]);
+    const { vip } = useVipStatus();
+    const { videoUrl } = useVideoAlert();
 
     /*
      * "用 MPV 播放" 的按鈕的 Handler
@@ -76,18 +35,42 @@ export default function Ani2Mpv() {
      * 如果使用者不是付費會員，會模擬播放廣告
      *
      */
-    function onClick() {
-        if (vip == true) {
-            apiGetM3U8((videoUrl) => {
-                setVideoUrl(videoUrl);
-            });
-        } else {
-            apiStartAd(() => {
-                setTimer(25);
-            });
+    const onClick = () => {
+        /*
+         * videoUrl 已經有了就直接播放
+         *
+         */
+        if (videoUrl) {
+            aniToMpv();
+            return;
         }
-    }
 
+        /*
+         * 沒有 videoUrl，是 VIP 可以直接取得 M3U8
+         *
+         */
+        if (vip == true) {
+            getM3U8();
+            return;
+        }
+
+        /*
+         * 沒有 videoUrl，不是 VIP 需要先過廣告關卡
+         *
+         */
+        apiStartAd(
+            (response) => {
+                console.log("ani2mpv: 廣告開始");
+                setTimer(25);
+            },
+            (error) => {}
+        );
+    };
+
+    /*
+     * 文字方塊要顯示的內容
+     *
+     */
     if (vip == true) {
         var text = `你是付費會員！`;
     } else if (vip == false && timer == null) {
