@@ -1,5 +1,5 @@
 import { getDefaultStore } from "jotai";
-import { vipAtom } from "../atoms/vipAtom";
+import { vipAtom } from "../atoms/animeAtom";
 
 const store = getDefaultStore();
 

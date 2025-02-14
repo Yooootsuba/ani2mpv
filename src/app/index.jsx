@@ -1,8 +1,8 @@
 import React from "react";
 import { useState, useEffect } from "react";
 
-import { animeToMpv } from "../utils/AnimeToMpv";
-import AnimePage from "../components/pages/AnimePage";
+// import { animeToMpv } from "../utils/AnimeToMpv";
+import Page from "./components/Page";
 import {
     apiStartAd,
     apiEndAd,
@@ -10,7 +10,10 @@ import {
     apiIsVip,
 } from "../utils/ApiWrapper";
 
-export default function MpvContainer() {
+import { useAtom } from "jotai";
+import { vipAtom, videoUrlAtom } from "../atoms/animeAtom";
+
+export default function Ani2Mpv() {
     /*
      * 用 useState 初始化一些狀態：
      *
@@ -21,9 +24,9 @@ export default function MpvContainer() {
      * videoUrl 最終要跳轉到 MPV 的 M3U8 網址
      *
      */
-    const [vip, setVip] = useState(null);
+    const [vip, setVip] = useAtom(vipAtom);
     const [timer, setTimer] = useState(null);
-    const [videoUrl, setVideoUrl] = useState(null);
+    const [videoUrl, setVideoUrl] = useAtom(videoUrlAtom);
 
     /*
      * 首次載入頁面，先確定使用者是不是付費會員
@@ -97,5 +100,5 @@ export default function MpvContainer() {
         var text = `取得會員資訊中 ...`;
     }
 
-    return <AnimePage onClick={onClick} text={text} />;
+    return <Page onClick={onClick} text={text} />;
 }

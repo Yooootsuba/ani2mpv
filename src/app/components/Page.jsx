@@ -1,7 +1,7 @@
 import React from "react";
 
-import MpvButton from "../parts/MpvButton";
-import MessageBox from "../parts/MessageBox";
+import MpvButton from "./MpvButton";
+import MessageBox from "./MessageBox";
 
 export default function AnimePage({ onClick, text }) {
     return (

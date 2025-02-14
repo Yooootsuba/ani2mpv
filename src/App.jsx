@@ -1,9 +1,9 @@
 import React from "react";
 
-import AnimeContainer from "./containers/AnimeContainer";
+import Ani2Mpv from "./app";
 
 function App() {
-    return <AnimeContainer />;
+    return <Ani2Mpv />;
 }
 
 export default App;
