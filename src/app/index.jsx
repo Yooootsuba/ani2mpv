@@ -4,6 +4,7 @@ import Page from "./components/Page";
 
 import { apiStartAd, apiEndAd } from "../api/api";
 
+import { useAnime } from "./hooks/useAnime";
 import { useAdTimer } from "./hooks/useAdTimer";
 import { useVipStatus } from "./hooks/useVipStatus";
 import { useVideoAlert } from "./hooks/useVideoAlert";
@@ -15,6 +16,16 @@ import { useAtom } from "jotai";
 import { videoUnlockedAtom } from "../atoms/animeAtom";
 
 export default function Ani2Mpv() {
+    /*
+     * 第一次進頁面初始化動畫瘋標題和 videoSn
+     *
+     */
+    useAnime();
+
+    /*
+     * videoSn 變更代表換頁，在這裡處理換頁邏輯
+     *
+     */
     useVideoSnEffect();
 
     /*
@@ -34,13 +45,13 @@ export default function Ani2Mpv() {
     });
 
     /*
-     * VIP 狀態
+     * 雖然外面會自動抓 VIP 資訊，但如果真的錯過了，這裡會重新抓一次
      *
      */
     const { vip } = useVipStatus();
 
     /*
-     * 影片的 M3U8 Url
+     * 影片的 M3U8 Url 被設定時，自動跳轉到 MPV
      *
      */
     const { videoUrl, getM3U8 } = useVideoAlert();
@@ -68,10 +79,10 @@ export default function Ani2Mpv() {
         }
 
         /*
-         * 沒有 videoUrl，是 VIP 可以直接取得 M3U8
+         * 沒有 videoUrl，是 VIP 或已經看過廣告，可以直接取得 M3U8
          *
          */
-        if (vip == true) {
+        if (vip || videoUnlocked) {
             getM3U8();
             return;
         }

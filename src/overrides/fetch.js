@@ -29,6 +29,7 @@ const store = getDefaultStore();
                     store.set(vipAtom, responseData.vip);
                     store.set(videoUnlockedAtom, responseData.time);
                     console.log("ani2mpv: VIP 狀態為", responseData.vip);
+                    console.log("ani2mpv: time 狀態為", responseData.time);
                 }
 
                 return response;

@@ -1,7 +1,9 @@
 import apiBase from "./apiBase";
 
-const ad = getAd()[0];
-const sn = animefun.videoSn;
+import { getDefaultStore } from "jotai";
+import { videoSnAtom } from "../atoms/animeAtom";
+
+const store = getDefaultStore();
 const device = animefun.getdeviceid();
 
 /*
@@ -10,8 +12,8 @@ const device = animefun.getdeviceid();
  */
 export function apiStartAd(onSuccess, onError) {
     apiBase(onSuccess, onError, "GET", "/ajax/videoCastcishu.php", {
-        s: ad,
-        sn: sn,
+        s: getAd()[0],
+        sn: store.get(videoSnAtom),
     });
 }
 
@@ -21,8 +23,8 @@ export function apiStartAd(onSuccess, onError) {
  */
 export function apiEndAd(onSuccess, onError) {
     apiBase(onSuccess, onError, "GET", "/ajax/videoCastcishu.php", {
-        s: ad,
-        sn: sn,
+        s: getAd()[0],
+        sn: store.get(videoSnAtom),
         ad: "end",
     });
 }
@@ -33,7 +35,7 @@ export function apiEndAd(onSuccess, onError) {
  */
 export function apiGetM3U8(onSuccess, onError) {
     apiBase(onSuccess, onError, "GET", "/ajax/m3u8.php", {
-        sn: sn,
+        sn: store.get(videoSnAtom),
         device: device,
     });
 }
@@ -44,7 +46,7 @@ export function apiGetM3U8(onSuccess, onError) {
  */
 export function apiGetToken(onSuccess, onError) {
     apiBase(onSuccess, onError, "GET", "/ajax/token.php", {
-        sn: sn,
+        sn: store.get(videoSnAtom),
         device: device,
     });
 }

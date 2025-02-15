@@ -15,7 +15,7 @@ export function useVipStatus() {
                 (error) => {}
             );
         }
-    }, []);
+    }, [vip]);
 
     return { vip, setVip };
 }
