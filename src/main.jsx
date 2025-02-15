@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 
 import "./overrides/fetch";
+import "./overrides/click";
 
 /*
  * 插件開始執行的進入點
