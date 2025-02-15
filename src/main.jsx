@@ -3,26 +3,28 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 
 import "./overrides/fetch";
-import "./overrides/click";
+import "./overrides/monitorUrlChange";
 
-/*
- * 插件開始執行的進入點
- *
- */
 console.log("ani2mpv: 載入 main.jsx");
 
-const app = document.createElement("div");
+let appContainer = null;
 const targetSelector = ".ncc-choose-btn";
 
-const observer = new MutationObserver((mutations) => {
+const observer = new MutationObserver(() => {
     const target = document.querySelector(targetSelector);
 
     if (target) {
-        target.after(app);
-        ReactDOM.createRoot(app).render(<App />);
-        observer.disconnect(); // 停止觀察
+        // appContainer 已經存在就不會重複插入
+        if (appContainer && document.body.contains(appContainer)) {
+            return;
+        }
+
+        // 建立自己的掛載點，讓頁面重新渲染不會消失
+        appContainer = document.createElement("div");
+        appContainer.id = "ani2mpv-root";
+        target.after(appContainer);
+        ReactDOM.createRoot(appContainer).render(<App />);
     }
 });
 
-// 開始觀察 DOM 變化
 observer.observe(document.body, { childList: true, subtree: true });
