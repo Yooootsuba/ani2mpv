@@ -4,6 +4,7 @@ import App from "./App";
 
 import "./overrides/fetch";
 import "./overrides/monitorUrlChange";
+import "./overrides/monitorVideoTitle";
 
 console.log("ani2mpv: 載入 main.jsx");
 
