@@ -1,5 +1,5 @@
 import { getDefaultStore } from "jotai";
-import { vipAtom } from "../atoms/animeAtom";
+import { vipAtom, videoUnlockedAtom } from "../atoms/animeAtom";
 
 const store = getDefaultStore();
 
@@ -27,6 +27,7 @@ const store = getDefaultStore();
 
                 if (responseData && typeof responseData.vip !== "undefined") {
                     store.set(vipAtom, responseData.vip);
+                    store.set(videoUnlockedAtom, responseData.time);
                     console.log("ani2mpv: VIP 狀態為", responseData.vip);
                 }
 

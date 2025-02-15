@@ -7,10 +7,16 @@ import { apiStartAd, apiEndAd } from "../api/api";
 import { useAdTimer } from "./hooks/useAdTimer";
 import { useVipStatus } from "./hooks/useVipStatus";
 import { useVideoAlert } from "./hooks/useVideoAlert";
+import { useVideoSnEffect } from "./hooks/useVideoSnEffect";
 
 import { animeToMpv } from "../utils/animeToMpv";
 
+import { useAtom } from "jotai";
+import { videoUnlockedAtom } from "../atoms/animeAtom";
+
 export default function Ani2Mpv() {
+    useVideoSnEffect();
+
     /*
      * 初始化廣告計時器
      *
@@ -27,8 +33,23 @@ export default function Ani2Mpv() {
         );
     });
 
+    /*
+     * VIP 狀態
+     *
+     */
     const { vip } = useVipStatus();
+
+    /*
+     * 影片的 M3U8 Url
+     *
+     */
     const { videoUrl, getM3U8 } = useVideoAlert();
+
+    /*
+     * 該影片是否需要觀看廣告的狀態
+     *
+     */
+    const [videoUnlocked, setVideoUnlocked] = useAtom(videoUnlockedAtom);
 
     /*
      * "用 MPV 播放" 的按鈕的 Handler
@@ -74,6 +95,8 @@ export default function Ani2Mpv() {
      */
     if (vip == true) {
         var text = `你是付費會員！`;
+    } else if (videoUnlocked) {
+        var text = `不用觀看廣告即可播放`;
     } else if (vip == false && timer == null) {
         var text = `按下按鈕後自動觀看廣告`;
     } else if (vip == false && timer > 0) {
