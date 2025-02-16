@@ -1,6 +1,10 @@
 import { useState, useEffect } from "react";
 
-export function useAdTimer(countToZeroCallback) {
+import { apiEndAd } from "../../api/api";
+
+import { getM3U8 } from "../services/getM3U8";
+
+export function useAdTimer() {
     const [timer, setTimer] = useState(null);
 
     useEffect(() => {
@@ -11,7 +15,13 @@ export function useAdTimer(countToZeroCallback) {
                     setTimer(timer - 1);
                 }, 1000);
             } else {
-                countToZeroCallback();
+                apiEndAd(
+                    (response) => {
+                        console.log("ani2mpv: 廣告結束");
+                        getM3U8();
+                    },
+                    (error) => {}
+                );
             }
         }
     }, [timer]);

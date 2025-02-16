@@ -2,7 +2,7 @@ import React from "react";
 
 import Page from "./components/Page";
 
-import { apiStartAd, apiEndAd } from "../api/api";
+import { apiStartAd } from "../api/api";
 
 import { useAnime } from "./hooks/useAnime";
 import { useAdTimer } from "./hooks/useAdTimer";
@@ -14,6 +14,8 @@ import { animeToMpv } from "../utils/animeToMpv";
 
 import { useAtom } from "jotai";
 import { videoUnlockedAtom } from "../atoms/animeAtom";
+
+import { getM3U8 } from "./services/getM3U8";
 
 export default function Ani2Mpv() {
     /*
@@ -34,15 +36,7 @@ export default function Ani2Mpv() {
      * 下方參數是計時器歸 0 該做的事情，發送看完廣告的請求，然後取得 M3U8
      *
      */
-    const { timer, setTimer } = useAdTimer(() => {
-        apiEndAd(
-            (response) => {
-                console.log("ani2mpv: 廣告結束");
-                getM3U8();
-            },
-            (error) => {}
-        );
-    });
+    const { timer, setTimer } = useAdTimer();
 
     /*
      * 雖然外面會自動抓 VIP 資訊，但如果真的錯過了，這裡會重新抓一次
@@ -54,7 +48,7 @@ export default function Ani2Mpv() {
      * 影片的 M3U8 Url 被設定時，自動跳轉到 MPV
      *
      */
-    const { videoUrl, getM3U8 } = useVideoAlert();
+    const { videoUrl } = useVideoAlert();
 
     /*
      * 該影片是否需要觀看廣告的狀態
