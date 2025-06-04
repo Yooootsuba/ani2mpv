@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 
 import { apiEndAd } from "../../api/api";
 
@@ -11,13 +11,7 @@ export function useAd() {
     const [ad, setAd] = useAtom(adAtom);
     const [videoSn, setVideoSn] = useAtom(videoSnAtom);
 
-    const timerRef = useRef(null);
-
     useEffect(() => {
-        if (timerRef.current) {
-            clearTimeout(timerRef.current);
-        }
-
         /*
          * 為空不執行
          *
@@ -43,7 +37,7 @@ export function useAd() {
          *
          */
         if (ad.timer > 0) {
-            timerRef.current = setTimeout(() => {
+            setTimeout(() => {
                 console.log(`ani2mpv: 廣告播放中，還剩下 ${ad.timer - 1} 秒`);
                 setAd((prev) => ({
                     ...prev,
