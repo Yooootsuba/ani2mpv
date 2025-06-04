@@ -5,7 +5,7 @@ import Page from "./components/Page";
 import { apiStartAd } from "../api/api";
 
 import { useAnime } from "./hooks/useAnime";
-import { useAdTimer } from "./hooks/useAdTimer";
+import { useAd } from "./hooks/useAd";
 import { useVipStatus } from "./hooks/useVipStatus";
 import { useVideoAlert } from "./hooks/useVideoAlert";
 import { useVideoSnEffect } from "./hooks/useVideoSnEffect";
@@ -28,15 +28,13 @@ export default function Ani2Mpv() {
      * videoSn 變更代表換頁，在這裡處理換頁邏輯
      *
      */
-    useVideoSnEffect();
+    const { videoSn } = useVideoSnEffect();
 
     /*
-     * 初始化廣告計時器
-     *
-     * 下方參數是計時器歸 0 該做的事情，發送看完廣告的請求，然後取得 M3U8
+     * 廣告計時器
      *
      */
-    const { timer, setTimer } = useAdTimer();
+    const { ad, setAd } = useAd();
 
     /*
      * 雖然外面會自動抓 VIP 資訊，但如果真的錯過了，這裡會重新抓一次
@@ -88,7 +86,7 @@ export default function Ani2Mpv() {
         apiStartAd(
             (response) => {
                 console.log("ani2mpv: 廣告開始");
-                setTimer(25);
+                setAd({ timer: 25, videoSn: videoSn });
             },
             (error) => {}
         );
@@ -102,11 +100,11 @@ export default function Ani2Mpv() {
         var text = `你是付費會員！`;
     } else if (videoUnlocked) {
         var text = `不用觀看廣告即可播放`;
-    } else if (vip == false && timer == null) {
+    } else if (vip == false && ad == null) {
         var text = `按下按鈕後自動觀看廣告`;
-    } else if (vip == false && timer > 0) {
-        var text = `廣告播放中，還剩下 ${timer} 秒`;
-    } else if (vip == false && timer == 0) {
+    } else if (vip == false && ad.timer > 0) {
+        var text = `廣告播放中，還剩下 ${ad.timer} 秒`;
+    } else if (vip == false && ad.timer == 0) {
         var text = `廣告播放完畢`;
     } else {
         var text = `取得會員資訊中 ...`;

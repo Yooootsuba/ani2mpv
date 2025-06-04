@@ -10,4 +10,6 @@ export function useVideoSnEffect() {
         console.log("ani2mpv: 偵測到換頁，videoSn 變更為", videoSn);
         setVideoUrl(null);
     }, [videoSn]);
+
+    return { videoSn, setVideoSn };
 }
