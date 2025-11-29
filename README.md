@@ -70,6 +70,8 @@ https://github.com/Yooootsuba/ani2mpv/blob/main/mpv/mpv.conf
 
 而且有支援跨平台（Linux 和 Windows）
 
+注意！akiirui/mpv-handler v0.4.0 以後的版本不相容，建議使用 akiirui/mpv-handler v0.3.16
+
 
 ## License
 
